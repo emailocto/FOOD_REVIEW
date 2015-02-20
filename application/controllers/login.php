@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+session_start();
 
 class Login extends CI_Controller {
 
@@ -21,6 +22,42 @@ class Login extends CI_Controller {
 	{
 		//check if logged in
 		//add user login validations
+		if($this->session->userdata('haslogged_user')){
+			redirect('home', 'refresh');
+		} else {
+			//form validation
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('uname', 'Username', 'required');
+			$this->form_validation->set_rules('pword', 'Password', 'required');
+			if($this->form_validation->run() == FALSE) {
+				//Field validation failed.  User redirected to login page
+				//$this->load->view('template_header', $params);
+				//$this->load->view('view_home');
+				//$this->load->view('template_footer');
+				echo validation_errors();
+			}	else {		
+				$data = array(
+								'username' => $this->input->post('uname'),
+								'password' => $this->input->post('pword')
+							);
+			
+				$this->load->model('modelUser', '', TRUE);
+				$result = $this->modelUser->check_user($data);
+				
+				if($result){
+					//Go to private area
+					$session_arr = array(
+						'id' => $result->id,
+						'username' => $result->username
+					);
+					
+					$this->session->userdata('haslogged_user', $session_arr);
+					redirect('view_home', 'refresh');				
+				} else {
+					echo "Username or password incorrect.";
+				}
+			}
+		}
 	}
 }
 

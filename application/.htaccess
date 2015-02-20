@@ -1,6 +1,1 @@
-//In the above example, any HTTP request other than those for index.php, 
-//images, and robots.txt is treated as a request for your index.php file.
-
-RewriteEngine on
-RewriteCond $1 !^(index\.php|images|robots\.txt)
-RewriteRule ^(.*)$ /index.php/$1 [L]
+Deny from all

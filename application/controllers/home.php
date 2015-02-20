@@ -18,13 +18,13 @@ class Home extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+	{		
 		$params['template_title'] = '';
-		$params['template_css'] = '';
+		$params['template_css'] = '';				
 		
 		$this->load->view('template_header', $params);
 		$this->load->view('view_home');
-		$this->load->view('template_footer');
+		$this->load->view('template_footer');	
 	}
 }
 
