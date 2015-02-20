@@ -34,7 +34,8 @@ class Login extends CI_Controller {
 				//$this->load->view('template_header', $params);
 				//$this->load->view('view_home');
 				//$this->load->view('template_footer');
-				echo validation_errors();
+				$result = array('message' => validation_errors());
+				echo json_encode($result);
 			}	else {		
 				$data = array(
 								'username' => $this->input->post('uname'),
@@ -45,19 +46,29 @@ class Login extends CI_Controller {
 				$result = $this->modelUser->check_user($data);
 				
 				if($result){
-					//Go to private area
-					$session_arr = array(
-						'id' => $result->id,
-						'username' => $result->username
-					);
+					foreach($result as $row){
+						$session_arr = array(
+							'id' => $row->id,
+							'username' => $row->username
+						);
+						
+						$this->session->set_userdata('haslogged_user', $session_arr);
+					}
 					
-					$this->session->userdata('haslogged_user', $session_arr);
-					redirect('view_home', 'refresh');				
+					$result = array('result' => '/');
+					echo json_encode($result);										
 				} else {
-					echo "Username or password incorrect.";
+					$result = array('message' => 'Username or password incorrect.');
+					echo json_encode($result);
 				}
 			}
 		}
+	}
+	
+	public function doLogout(){
+		$this->session->unset_userdata('haslogged_user');
+		session_destroy();
+		redirect('/');
 	}
 }
 

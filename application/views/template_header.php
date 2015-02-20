@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -26,10 +25,12 @@
 						$userdata = $this->session->userdata('haslogged_user');
 				?>
 					Welcome <?php echo $userdata['username']; ?>
+					</span>
+					<span><a href="login/doLogout"> Logout </a></span>
 				<?php } else { ?>
 					<button id="btnLog" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#login_form">Login</button>
-				<?php } ?>
-			</span>
-			<span> Register</span>
+					</span>
+				  <span> Register</span>
+				<?php } ?>			
 		</div>
 	</div>

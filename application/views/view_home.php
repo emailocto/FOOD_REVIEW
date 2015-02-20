@@ -53,9 +53,12 @@
 				data: {'uname': sUserName, 'pword': sPassword},
 				url: 'login',
 				type: 'POST',
-				success: function(result){
-					alert(result);
-					$('#spanLoginError').html(result);
+				success: function(data){					
+					var result = $.parseJSON(data); alert(result['result']);
+					if(result['message'] != null)					
+						$('#spanLoginError').html(result);
+					else
+						window.location.href = result['result'];
 				},
 				error: function(){
 					alert('error');
