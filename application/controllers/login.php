@@ -20,20 +20,24 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->view('login');
+	}
+	
+	public function doLogin(){		
 		//check if logged in
 		//add user login validations
 		if($this->session->userdata('haslogged_user')){
 			redirect('home', 'refresh');
 		} else {
+			if(! $this->input->post('uname')){
+				return false;
+			}
+			
 			//form validation
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('uname', 'Username', 'required');
 			$this->form_validation->set_rules('pword', 'Password', 'required');
 			if($this->form_validation->run() == FALSE) {
-				//Field validation failed.  User redirected to login page
-				//$this->load->view('template_header', $params);
-				//$this->load->view('view_home');
-				//$this->load->view('template_footer');
 				$result = array('message' => validation_errors());
 				echo json_encode($result);
 			}	else {		

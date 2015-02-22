@@ -13,5 +13,18 @@
 			else
 				return false;
 		}
+		
+		public function insert_user($data){
+			$db_data = array(
+				'username' => $data['username'],
+				'password' => $data['password'],
+				'email' => $data['email']
+			);
+		
+			if($this->db->insert('users', $data)){
+				return true;
+			} else
+				return false;
+		}
 	}
 ?>

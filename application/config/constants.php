@@ -18,6 +18,10 @@ define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
+//My Defines
+define('JQUERY_URL', 'assets/js/jquery-2.1.1.js');
+define('BOOTSTRAPJS_URL', 'assets/bootstrap-3.3.2/js/bootstrap.js');
+
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes

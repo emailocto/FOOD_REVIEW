@@ -34,8 +34,8 @@
 	</div>
 </div>
 
-<script src="assets/js/jquery-2.1.1.js" ></script>
-<script src="assets/bootstrap-3.3.2/js/bootstrap.js" ></script>	
+<script src="<?php echo JQUERY_URL; ?>" ></script>
+<script src="<?php echo BOOTSTRAPJS_URL; ?>" ></script>	
 <script>
 	$(document).ready(function(){
 		$('#btnLog').click(function(){
@@ -51,14 +51,14 @@
 		
 			$.ajax({
 				data: {'uname': sUserName, 'pword': sPassword},
-				url: 'login',
+				url: 'login/doLogin',
 				type: 'POST',
 				success: function(data){					
-					var result = $.parseJSON(data); alert(result['result']);
-					if(result['message'] != null)					
-						$('#spanLoginError').html(result);
-					else
-						window.location.href = result['result'];
+					var result = $.parseJSON(data); 
+					if(result['message'] != null){					
+						$('#spanLoginError').html(result['message']);
+					} else if(result['result'])
+						location.reload(true);
 				},
 				error: function(){
 					alert('error');
